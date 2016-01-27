@@ -1,0 +1,62 @@
+@charset "utf-8";
+/* CSS Document */
+
+@font-face {
+    font-family: 'amertype_md_btmedium';
+    src: url('../fonts/amrtypen-webfont.eot');
+    src: url('../fonts/amrtypen-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/amrtypen-webfont.woff2') format('woff2'),
+         url('../fonts/amrtypen-webfont.woff') format('woff'),
+         url('../fonts/amrtypen-webfont.ttf') format('truetype'),
+         url('../fonts/amrtypen-webfont.svg#amertype_md_btmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+	font-family:'ErasITC-Demi';
+	src: url('../fonts/ErasITC-Demi_gdi.eot');
+	src: url('../fonts/ErasITC-Demi_gdi.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/ErasITC-Demi_gdi.woff') format('woff'),
+		url('../fonts/ErasITC-Demi_gdi.ttf') format('truetype'),
+		url('../fonts/ErasITC-Demi_gdi.svg#ErasITC-Demi') format('svg');
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+0020-25CA;
+}
+@font-face {
+	font-family:'ErasITC-Bold';
+	src: url('../fonts/ErasITC-Bold_gdi.eot');
+	src: url('../fonts/ErasITC-Bold_gdi.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/ErasITC-Bold_gdi.woff') format('woff'),
+		url('../fonts/ErasITC-Bold_gdi.ttf') format('truetype'),
+		url('../fonts/ErasITC-Bold_gdi.svg#ErasITC-Bold') format('svg');
+	font-weight: 400;
+	font-style: normal;
+	font-stretch: normal;
+	unicode-range: U+0020-25CA;
+}
+
+.row{padding:0; margin:0}
+.index-bg{ background:url(../images/index-bg.jpg) center top; background-size:cover;height:700px;}
+.login-form{background:url(../images/login-bg.jpg)center top; background-size:cover;xheight:700px;padding-bottom:10px}
+.sand-logo{margin-top:10px}
+.container {width:1000px;}
+.fb-btn{margin-top:25%;padding-left:16%}
+.like-btn a{color:#fff;font-size:30px; text-decoration:none;font-family: 'amertype_md_btmedium'; text-transform:uppercase}
+.form-bg{background:rgba(160,12,89,0.5);padding:10px;margin-top:10%; xxxmax-height:510px}
+.form-student{border:2px solid #fff; border-radius:8px; padding:10px}
+.form-student input{background:#d594b6; border:none;color:#fff;font-family:'ErasITC-Demi';}
+.form-student label{color:#fff;font-family:'ErasITC-Demi';font-size:19px; letter-spacing:0.1em; text-transform:uppercase}
+.form-student h3{color:#fff;font-family:'ErasITC-Demi';font-size:45px;text-transform:uppercase; font-weight:bold; text-align:center;margin-top:14px}
+.file-text{color:#fff;font-family:'ErasITC-Demi';font-size:9px;}
+.form-group{margin-bottom:8px}
+.gatepass-bg{background: url(../images/gatepass-bg.png) no-repeat left #252c80; height:479px;padding:10px;border:2px solid #fff; border-radius:8px}
+.heading h2{color:#fff;font-family:'ErasITC-Bold';font-size:4em;text-transform:uppercase}
+.heading-two{color:#fff;font-family:'ErasITC-Demi';font-size:3.5em;text-transform:uppercase;line-height: 0.5em;}
+.user-info{margin-top:5%;color:#fff;font-family:'ErasITC-Demi';font-size:15px;text-transform:uppercase;}
+.user-info td{padding:5px; vertical-align:top}
+.bottom-bg{background:rgba(0,0,0,0.5); padding:10px 5px;color:#fff;font-family:'ErasITC-Demi';margin-top: 5%;}
+.bottom-bg li:first-of-type{ vertical-align:top;border-right: 1px solid #fff;}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{background:#d594b6; border:none;color:#fff;font-family:'ErasITC-Demi';}
