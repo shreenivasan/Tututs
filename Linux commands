@@ -3,7 +3,6 @@
 ========================================================
 1) How to start apache in ubuntu
 sudo service apache2 start
-
 ------------------------------------------------------------
 
 ========================================================
@@ -12,7 +11,6 @@ sudo service apache2 start
 1) To install mysql extensions like mysqli,pdo etc.
 
 sudo apt-get install php5-mysqlnd
-
 ------------------------------------------------------------
 
 ========================================================
@@ -22,3 +20,23 @@ sudo apt-get install php5-mysqlnd
 git --version
 
 ------------------------------------------------------------
+
+
+========================================================
+    Linux File System
+========================================================
+
+ls : get the list of files and directory
+------------------------------------------------------------
+ls -l : get formated list of all files and directory
+------------------------------------------------------------
+ls -t : time wise listing
+------------------------------------------------------------
+ls *.txt : all files with .txt extension
+------------------------------------------------------------
+ls -a : list including hidden files and directory
+------------------------------------------------------------
+ls -atl : time wise list of all files and directory including hidden files and directory    
+-------------------------------------------------------------------------------------------
+mv <source_dir> <dest_dir> : move folder to selected directory path
+-------------------------------------------------------------------------------------------
