@@ -19,6 +19,10 @@ sudo apt-get install php5-mysqlnd
 1) To check git is installed or not 
 git --version
 
+2) To check git configuration file details [go to local repository e.g. /var/www/html/Tututs then type following command]
+cat .git/config
+
+
 ------------------------------------------------------------
 
 
@@ -40,3 +44,11 @@ ls -atl : time wise list of all files and directory including hidden files and d
 -------------------------------------------------------------------------------------------
 mv <source_dir> <dest_dir> : move folder to selected directory path
 -------------------------------------------------------------------------------------------
+
+
+========================================================
+	General
+========================================================
+Checking email error logs 
+
+vim /var/log/mail.err
