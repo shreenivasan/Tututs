@@ -1,4 +1,5 @@
 <?php
+//Creates a csv file from an array 
 $filename = "toy_csv.csv";
 $fp = fopen('php://output', 'w');
 
