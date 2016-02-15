@@ -7,4 +7,3 @@
    $arList = $redis->keys("*");
    echo "Stored keys in redis:: ";
    print_r($arList);
-
