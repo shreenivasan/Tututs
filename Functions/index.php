@@ -40,4 +40,11 @@ function xss_encode($string, $charset = 'UTF-8')
         $string = str_ireplace($search, $replace, $string);
         $string = htmlentities($string, ENT_QUOTES, $charset);
         return $string;
-}        
+} 
+
+function xss_decode($string, $charset = 'UTF-8')
+{
+        $string = html_entity_decode($string, ENT_QUOTES, $charset);
+        $string = urldecode($string);
+        return $string;
+}
