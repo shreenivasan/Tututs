@@ -37,7 +37,9 @@ Step 4) Type command
 
         git push <destination_git_project_name> <source_git_project_branch>
         e.g. git push https://shreenivas.madagundi%40gmail.com@github.com/shreenivasan/Tututs.git refs/heads/master:refs/heads/master
-
+        or
+        git push origin <name_of_branch>
+        e.g. git push origin testing1
 ------------------------------------------------------------
 
 
