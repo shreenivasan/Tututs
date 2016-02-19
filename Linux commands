@@ -25,14 +25,18 @@ cat .git/config
 To commit
 
 Step 1) Go to root of the project e.g. /var/www/html/Tututs
+
 Step 2) Type command  git add <file_path_to_commit>
-e.g. git add /var/www/html/Tututs/Redis/string.php
+    e.g. git add /var/www/html/Tututs/Redis/string.php
+
 Step 3) Type command 
-git commit -m <add_comment_if_any> <file_path>
-    e.g. git commit -m changed string in Redis | used get & set method /var/www/html/Tututs/Redis/string.php
+        git commit -m <add_comment_if_any> <file_path>
+        e.g. git commit -m changed string in Redis | used get & set method /var/www/html/Tututs/Redis/string.php
+
 Step 4) Type command 
-git push <destination_git_project_name> <source_git_project_branch>
-e.g. git push https://shreenivas.madagundi%40gmail.com@github.com/shreenivasan/Tututs.git refs/heads/master:refs/heads/master
+
+        git push <destination_git_project_name> <source_git_project_branch>
+        e.g. git push https://shreenivas.madagundi%40gmail.com@github.com/shreenivasan/Tututs.git refs/heads/master:refs/heads/master
 
 ------------------------------------------------------------
 
