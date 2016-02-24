@@ -1,0 +1,26 @@
+<?php
+include("retwis.php");
+
+if (!isLoggedIn() || !gt("status")) {
+    header("Location:index.php");
+    exit;
+}   
+
+$r = redisLink();
+$postid = $r->incr("next_post_id_php_redis");
+$status = str_replace("\n"," ",gt("status"));
+$r->hmset("post_php_redis:$postid","user_id",$User['id'],"time",time(),"body",$status);
+$followers = $r->zrange("followers_php_redis:".$User['id'],0,-1);
+$followers[] = $User['id']; /* Add the post to our own posts too */
+
+foreach($followers as $fid) {
+    $r->lpush("posts_php_redis:$fid",$postid);
+}
+# Push the post on the timeline, and trim the timeline to the
+# newest 1000 elements.
+$r->lpush("timeline",$postid);
+$r->ltrim("timeline",0,1000);
+
+header("Location: index.php");
+?>
+
