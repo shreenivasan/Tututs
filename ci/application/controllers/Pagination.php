@@ -5,10 +5,10 @@ class Pagination extends CI_Controller
 {
     public function __construct() {
         parent:: __construct();
-        echo "fdfd"; die;
-//        $this->load->helper("url");
-//        $this->load->model("Countries");
-//        $this->load->library("pagination");
+      
+        $this->load->helper("url");
+        $this->load->model("Countries");
+        $this->load->library("pagination");
     }
 
     public function example1() {
