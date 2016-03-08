@@ -188,3 +188,131 @@ Wild    card /Shorthand                                 Meaning     Examples
 -------------------------------------------------
  command1;command2
 To run two command with one command line use semicolon in between them.
+
+-------------------------------------------------
+        Redirection of Standard output/input
+-------------------------------------------------
+Mostly all command gives output on screen or take input from keyboard, 
+but in Linux (and in other OSs also) it's possible to send output to file or to read input from file.
+
+For e.g.
+$ ls command gives output to screen; to send output to file of ls command give command
+
+$ ls > filename
+It means put output of ls command to filename.
+
+There are three main redirection symbols >,>>,<
+
+(1) > Redirector Symbol
+Syntax:
+Linux-command > filename
+To output Linux-commands result (output of command or shell script) to file. Note that if file already exist, 
+it will be overwritten else new file is created. For e.g. To send output of ls command give.
+
+$ ls > myfiles
+Now if 'myfiles' file exist in your current directory it will be overwritten without any type of warning.
+
+(2) >> Redirector Symbol
+Syntax:
+Linux-command >> filename
+To output Linux-commands result (output of command or shell script) to END of file. Note that if file exist , 
+it will be opened and new information/data will be written to END of file, without losing previous information/data, And if file is not exist, then new file is created. For e.g. To send output of date command to already exist file give command
+$ date >> myfiles
+
+(3) < Redirector Symbol
+Syntax:
+Linux-command < filename
+To take input to Linux-command from file instead of key-board. For e.g. To take input for cat command give
+$ cat < myfiles
+
+-------------------------------------------------
+        Pipes
+-------------------------------------------------
+
+    A pipe is nothing but a temporary storage place where the output of one command is stored 
+    and then passed as the input for second command. Pipes are used to run more than two commands 
+    ( Multiple commands) from same command line.
+    
+    Syntax:
+    command1 | command2
+
+Command using Pipes         Meaning or Use of Pipes
+$ ls | more                 Output of ls command is given as input to more command So that output is printed one screen full 
+                            page at a time.
+$ who | sort                Output of who command is given as input to sort command So that it will print sorted list of users
+$ who | sort > user_list    Same as above except output of sort is send to (redirected) user_list file
+$ who | wc -l               Output of who command is given as input to wc command So that it will number of user who logon to 
+                            system
+$ ls -l | wc  -l            Output of ls command is given as input to wc command So that it will print number of files in current
+                            directory.
+$ who | grep raju           Output of who command is given as input to grep command So that it will print if particular user name 
+                            if he is logon or nothing is printed (To see particular user is logon or not)
+
+-------------------------------------------------
+    Filters
+-------------------------------------------------
+If a Linux command accepts its input from the standard input and produces its output on standard 
+output is know as a filter. A filter performs some kind of process on the input and gives output. 
+
+For e.g.. Suppose you have file called 'hotel.txt' with 100 lines data, 
+          And from 'hotel.txt' you would like to print contains from line number 20 to line number 30 
+          and store this result to file called 'hlist' then give command:
+
+$ tail +20 < hotel.txt | head -n30 >hlist
+
+Here head command is filter which takes its input from tail command (tail command start selecting from line number 20 of given file i.e. hotel.txt) and passes this lines as input to head, whose output is redirected to 'hlist' file.
+
+$ ls / -R | wc -l
+This command will take lot of time to search all files on your system. So you can run such command in Background or simultaneously by giving command like
+
+$ ls / -R | wc -l &
+The ampersand (&) at the end of command tells shells start process (ls / -R | wc -l) and 
+run it in background takes next command immediately.
+
+-------------------------------------------------
+        Linux Command Related with Process
+-------------------------------------------------
+Following tables most commonly used command(s) with process:
+
+
+For this purpose                                Use this Command                    Examples*
+To see currently running process                ps                                  $ ps
+
+To stop any process by PID i.e. 
+
+to kill process                                 kill    {PID}                       $ kill  1012
+
+To stop processes by name i.e. to kill process	killall   {Process-name}            $ killall httpd
+
+To get information about all running process	ps -ag                              $ ps -ag
+
+To stop all process except your shell           kill 0                              $ kill 0
+
+For background processing (With &, use to put   linux-command  &                    $ ls / -R | wc -l &
+particular command and program in background)	
+                    
+To display the owner of the processes along     ps aux                              $ ps aux
+with the processes  		
+
+To see if a particular process is running or    ps ax | grep  process-U-want-to see $ ps ax | grep httpd   
+not. For this purpose you have to use ps 
+command in combination with the grep command	 
+
+To see currently running processes and other    top                                 $top
+information like memory and CPU usage with real 
+time updates.	
+
+To display a tree of processes                  pstree                              $ pstree
+
+
+--------------------------------------------------------------------
+In Linux Shell Value                Meaning             Example
+--------------------------------------------------------------------
+Zero Value (0)                      Yes/True            0
+NON-ZERO Value                      No/False            -1, 32, 55 anything but not zero
+
+--------------------------------------------------------------------
+Value           Shown in bc as      Shown in Linux Shell as
+--------------------------------------------------------------------
+True/Yes	1                   0
+False/No	0                   Non - zero value
