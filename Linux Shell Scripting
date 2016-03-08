@@ -1,0 +1,190 @@
+-------------------------------------------------
+    A) How to write shell script
+-------------------------------------------------
+1) create a file using any editor then save it in file
+2) Execute your script as
+syntax:
+bash your-script-name
+sh your-script-name
+./your-script-name
+
+Examples:
+$ bash bar
+$ sh bar
+$ ./bar
+
+e.g. 
+$ vi first
+#
+# My first shell script
+#
+clear
+echo "Knowledge is Power"
+
+$ ./first
+
+will print Knowledge is Power
+
+-------------------------------------------------
+    B) Variables in Shell
+-------------------------------------------------
+There are two types of variable:
+(1) System variables - Created and maintained by Linux itself. This type of variable defined in CAPITAL LETTERS.
+(2) User defined variables (UDV) - Created and maintained by user. This type of variable defined in lower letters.
+
+System Variable
+	
+Meaning
+BASH=/bin/bash                              Our shell name
+BASH_VERSION=1.14.7(1)                      Our shell version name
+COLUMNS=80                                  No. of columns for our screen
+HOME=/home/vivek                            Our home directory
+LINES=25                                    No. of columns for our screen
+LOGNAME=students                            students Our logging name
+OSTYPE=Linux                                Our Os type
+PATH=/usr/bin:/sbin:/bin:/usr/sbin          Our path settings
+PS1=[\u@\h \W]\$                            Our prompt settings
+PWD=/home/students/Common                   Our current working directory
+SHELL=/bin/bash                             Our shell name
+USERNAME=vivek                              User name who is currently login to this PC
+
+e.g.
+
+$ echo $USERNAME
+$ echo $HOME
+
+-------------------------------------------------
+        User defined variables
+-------------------------------------------------
+To define UDV use following syntax
+Syntax:
+variable name=value
+e.g.
+    n=10
+
+echo $n
+
+-------------------------------------------------
+            echo Command
+-------------------------------------------------
+Use echo command to display text or value of variable.
+
+echo [options] [string, variables...]
+Displays text or variables value on screen.
+Options
+-n Do not output the trailing new line.
+-e Enable interpretation of the following backslash escaped characters in the strings:
+\a alert (bell)
+\b backspace
+\c suppress trailing new line
+\n new line
+\r carriage return
+\t horizontal tab
+\\ backslash
+
+For e.g. $ echo -e "An apple a day keeps away \a\t\tdoctor\n"
+
+-------------------------------------------------
+            Shell Arithmetic    
+-------------------------------------------------
+Syntax:
+expr op1 math-operator op2
+
+Examples:
+$ expr 1 + 3
+$ expr 2 - 1
+$ expr 10 / 2
+$ expr 20 % 3
+$ expr 10 \* 3
+$ echo `expr 6 + 3`
+
+Note:
+expr 20 %3 - Remainder read as 20 mod 3 and remainder is 2.
+expr 10 \* 3 - Multiplication use \* and not * since its wild card.
+
+For the last statement not the following points
+
+(1) First, before expr keyword we used ` (back quote) sign not the (single quote i.e. ') sign. 
+    Back quote is generally found on the key under tilde (~) on PC keyboard OR to the above of TAB key.
+
+(2) Second, expr is also end with ` i.e. back quote.
+
+(3) Here expr 6 + 3 is evaluated to 9, then echo command prints 9 as sum
+
+(4) Here if you use double quote or single quote, it will NOT work
+For e.g.
+$ echo "expr 6 + 3" # It will print expr 6 + 3
+$ echo 'expr 6 + 3' # It will print expr 6 + 3
+
+-------------------------------------------------
+        More about Quotes
+-------------------------------------------------
+Quotes  Name             Meaning
+
+"	Double Quotes	"Double Quotes" - Anything enclose in double quotes removed meaning of that characters (except \ and $).
+
+'	Single quotes	'Single quotes' - Enclosed in single quotes remains unchanged.
+
+`	Back quote	
+
+`Back quote` - To execute command
+
+ Example:
+        $ echo "Today is date"
+        Can't print message with today's date.
+
+        $ echo "Today is `date`".
+        It will print today's date as, Today is Tue Jan ....,Can you see that the `date` statement uses back quote?
+
+-------------------------------------------------
+            Exit Status
+-------------------------------------------------
+By default in Linux if particular command/shell script is executed, it return two type of values which is used to see whether command or shell script executed is successful or not.
+
+(1) If return value is zero (0), command is successful.
+(2) If return value is nonzero, command is not successful or some sort of error executing command/shell script.
+
+e.g.
+$ rm unknow1file
+    It will show error as follows
+    rm: cannot remove `unkowm1file': No such file or directory
+        and after that if you give command
+
+$ echo $?
+    it will print nonzero value to indicate error. Now give command
+$ ls
+$ echo $?
+
+It will print 0 to indicate command is successful.
+-------------------------------------------------
+        read Statement
+-------------------------------------------------
+Use to get input (data from user) from keyboard and store (data) to variable.
+Syntax:
+read variable1, variable2,...variableN
+
+Following script first ask user, name and then waits to enter name from the user via keyboard. 
+Then user enters name from keyboard (after giving name you have to press ENTER key) and entered name 
+through keyboard is stored (assigned) to variable fname.
+
+echo "Your first name please:"
+read fname
+echo "Hello $fname, Lets be friend!"
+
+-------------------------------------------------
+Wild cards (Filename Shorthand or meta Characters)
+-------------------------------------------------
+Wild    card /Shorthand                                 Meaning     Examples
+*	Matches any string or group of characters.	$ ls *      will show all files
+                                                        $ ls a*     will show all files whose first name is starting with letter 'a'
+                                                        $ ls *.c    will show all files having extension .c
+                                                        $ ls ut*.c  will show all files having extension .c but file name must begin with 'ut'.
+?	Matches any single character.                   $ ls ?      will show all files whose names are 1 character long 
+                                                        $ ls fo?    will show all files whose names are 3 character long and file name begin with fo
+[...]	Matches any one of the enclosed characters	$ ls [abc]* will show all files beginning with letters a,b,c
+
+-------------------------------------------------
+        More command on one command line
+-------------------------------------------------
+ command1;command2
+To run two command with one command line use semicolon in between them.
