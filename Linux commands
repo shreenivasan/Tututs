@@ -69,3 +69,14 @@ mv <source_dir> <dest_dir> : move folder to selected directory path
 Checking email error logs 
 
 vim /var/log/mail.err
+
+
+========================================================
+	Shell Scripting commands
+========================================================
+To find all available shells in your system type following command:
+    $ cat /etc/shells
+-------------------------------------------------------------------------------------------
+To find your current shell type following command
+    $ echo $SHELL 
+-------------------------------------------------------------------------------------------
