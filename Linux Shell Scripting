@@ -316,3 +316,282 @@ Value           Shown in bc as      Shown in Linux Shell as
 --------------------------------------------------------------------
 True/Yes	1                   0
 False/No	0                   Non - zero value
+
+--------------------------------------------------------------------
+        If condition
+--------------------------------------------------------------------
+ Syntax:
+
+	if condition
+	then
+		command1 if condition is true or if exit status
+		of condition is 0 (zero)
+		...
+		...
+	fi
+
+--------------------------------------------------------------------
+        test command
+--------------------------------------------------------------------
+test command or [ expr ] is used to see if an expression is true, and if it is true it return zero(0), otherwise returns nonzero for false.
+Syntax:
+test expression OR [ expression ]
+
+ For Mathematics, use following operator in Shell Script
+
+--------------------------------------------------------------------
+Math Oper   Meaning                     Normal Arithmetical/ Mathematical Statements	But in Shell
+in shell                                                        For test stmt with if command	For [ expr ] statement with if command
+--------------------------------------------------------------------
+ 	
+-eq         is equal to                 5 == 6                  if test 5 -eq 6                         if [ 5 -eq 6 ]
+-ne         is not equal to             5 != 6                  if test 5 -ne 6                         if [ 5 -ne 6 ]
+-lt         is less than                5 < 6                   if test 5 -lt 6                         if [ 5 -lt 6 ]
+-le         is less than or equal to	5 <= 6                  if test 5 -le 6                         if [ 5 -le 6 ]
+-gt         is greater than             5 > 6                   if test 5 -gt 6                         if [ 5 -gt 6 ]
+-ge         is greater than or equal to	5 >= 6                  if test 5 -ge 6                         if [ 5 -ge 6 ]
+
+
+        For string Comparisons use
+--------------------------------------------------------------------
+    Operator            Meaning
+--------------------------------------------------------------------
+string1 = string2	string1 is equal to string2
+string1 != string2	string1 is NOT equal to string2
+string1	string1 is      NOT NULL or not defined 
+-n string1              string1 is NOT NULL and does exist
+-z string1              string1 is NULL and does exist
+
+    Shell also test for file and directory types
+--------------------------------------------------------------------
+    Test	Meaning
+--------------------------------------------------------------------
+-s file   	Non empty file
+-f file   	Is File exist or normal file and not a directory 
+-d dir    	Is Directory exist and not a file
+-w file  	Is writeable file
+-r file   	Is read-only file
+-x file   	Is file is executable
+
+    Logical Operators
+
+Logical operators are used to combine two or more condition at a time
+--------------------------------------------------------------------
+Operator           	Meaning
+--------------------------------------------------------------------
+! expression                    Logical NOT
+expression1  -a  expression2	Logical AND
+expression1  -o  expression2	Logical OR
+
+--------------------------------------------------------------------
+    if...else...fi
+--------------------------------------------------------------------
+
+Syntax:
+
+           if condition
+           then
+                       condition is zero (true - 0)
+                       execute all commands up to else statement
+
+           else
+                       if condition is not true then
+                       execute all commands up to fi
+           fi
+
+e.g.
+
+osch=0
+echo "1. Unix (Sun OS)"
+echo "2. Linux (Red Hat)"
+echo -n "select your os choice [1 or 2]"
+read osch
+if [ $osch -eq 1 ]; then
+echo "You pick up unix (Sun Os)";
+else
+        echo $osch
+        if [ $osch -eq 2 ] ; then
+                echo "You pick up Linux (Red Hat)"
+        else
+                echo "What you don't link Unix/Linux OS.";
+        fi
+fi
+
+--------------------------------------------------------------------
+        For Loop
+--------------------------------------------------------------------
+
+Syntax:
+
+            for { variable name } in { list }
+            do
+                     execute one for each item in the list until the list is
+                     not finished (And repeat all statement between do and done)
+            done
+
+            e.g.
+            for i in 1 2 3 4 5
+            do
+                echo "Welcome $i times"
+            done
+
+Syntax:
+
+         for (( expr1; expr2; expr3 ))
+         do
+               .....
+			   ...
+               repeat all statements between do and 
+               done until expr2 is TRUE
+         Done
+
+        e.g.
+        for ((  i = 0 ;  i <= 5;  i++  ))
+        do
+            echo "Welcome $i times"
+        done
+--------------------------------------------------------------------
+    chessboard printing tutorial using for loop
+--------------------------------------------------------------------
+ for (( i = 1; i <= 9; i++ )) ### Outer for loop ###
+do
+   for (( j = 1 ; j <= 9; j++ )) ### Inner for loop ###
+   do
+        tot=`expr $i + $j`
+        tmp=`expr $tot % 2`
+        if [ $tmp -eq 0 ]; then
+            echo -e -n "\033[47m "
+        else
+            echo -e -n "\033[40m "
+        fi
+  done
+ echo -e -n "\033[40m" #### set back background colour to black
+ echo "" #### print the new line ###
+done
+
+--------------------------------------------------------------------
+            while loop      
+--------------------------------------------------------------------
+while [ condition ]
+           do
+                 command1
+                 command2
+                 command3
+                 ..
+                 ....
+            done
+e.g.
+n=10
+i=1
+while [ $i -le 10 ]
+do
+  echo "$n * $i = `expr $i \* $n`"
+  i=`expr $i + 1`
+done
+
+--------------------------------------------------------------------
+    case Statement
+--------------------------------------------------------------------
+           case  $variable-name  in
+                pattern1)   command
+                                ...
+                                ..
+                                command;;
+                pattern2)   command
+                                ...
+                                ..
+                                command;;
+                patternN)   command
+                                ...
+                                ..
+                                command;;
+                *)             command
+                                ...
+                                ..
+                                command;;
+           esac
+
+--------------------------------------------------------------------
+        /dev/null
+--------------------------------------------------------------------
+ This is special Linux file which is used to send any unwanted output from program/command.
+Syntax:
+command > /dev/null
+
+--------------------------------------------------------------------
+        Conditional execution i.e. && and ||
+--------------------------------------------------------------------
+The control operators are && (read as AND) and || (read as OR). 
+
+The syntax for AND list is as follows
+Syntax:
+command1 && command2
+command2 is executed if, and only if, command1 returns an exit status of zero.
+
+The syntax for OR list as follows
+Syntax:
+command1 || command2
+command2 is executed if and only if command1 returns a non-zero exit status.
+
+You can use both as follows
+Syntax:
+command1 && comamnd2 if exist status is zero || command3 if exit status is non-zero
+if command1 is executed successfully then shell will run command2 and if command1 is not successful then command3 is executed.
+e.g.
+ $ rm myf && echo "File is removed successfully" || echo "File is not removed" 
+
+--------------------------------------------------------------------
+        Functions
+--------------------------------------------------------------------
+Syntax:
+       function-name ( )
+       {
+            command1
+            command2
+            .....
+            ...
+            commandN
+            return
+       }
+
+--------------------------------------------------------------------
+        Dialog utility
+--------------------------------------------------------------------
+        dialog --title {title} --backtitle {backtitle} {Box options}
+        where Box options can be any one of following
+        --yesno      {text}  {height} {width}
+        --msgbox     {text}  {height} {width}
+        --infobox    {text}  {height} {width}
+        --inputbox   {text}  {height} {width} [{init}]
+        --textbox    {file}  {height} {width}
+        --menu       {text}  {height} {width} {menu} {height} {tag1} item1}...
+--------------------------------------------------------------------
+        Yes No box
+--------------------------------------------------------------------
+ dialog --title "Alert : Delete File" --backtitle "Linux Shell Script\
+Tutorial" --yesno "\nDo you want to delete '/usr/letters/jobapplication'\
+file" 7 60
+sel=$?
+case $sel in
+   0) echo "User select to delete file";;
+   1) echo "User select not to delete file";;
+   255) echo "Canceled by user by pressing [ESC] key";;
+esac
+
+--------------------------------------------------------------------
+        Input Box (inputbox) using dialog utility
+--------------------------------------------------------------------
+
+dialog --title "Inputbox - To take input from you" --backtitle "Linux Shell\
+Script Tutorial" --inputbox "Enter your name please" 8 60 2>/tmp/input.$$
+
+sel=$?
+
+na=`cat /tmp/input.$$`
+case $sel in
+  0) echo "Hello $na" ;;
+  1) echo "Cancel is Press" ;;
+  255) echo "[ESCAPE] key pressed" ;;
+esac
+
+rm -f /tmp/input.$$
