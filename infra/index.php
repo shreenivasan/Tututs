@@ -2,10 +2,14 @@
     include_once 'common/header.php';
 ?>
 <form id="login_frm" method="post" onsubmit="return false;" autocomplete="off">
+    
     <div class="col-sm-12">
         <div class="col-sm-3"></div>
         <div class="col-sm-6 text-center">Login</div>
         <div class="col-sm-3"></div>
+    </div>
+    <div class="col-sm-12 text-center">
+        <span id="error_msg" style="color:red"></span>
     </div>
     <div class="col-sm-12">
         <div class="col-sm-2"></div>

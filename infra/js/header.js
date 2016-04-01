@@ -31,26 +31,14 @@ $(document).ready(function()
                 type: "POST",
                 success: function(data)
                 {
-                    if(data=="IU")
+                    if(data=="IUP")
                     {
-                        $("#username_msg").html('Invalid username');
-                    }
-                    else if(data=="IP")
+                        $("#error_msg").html('Invalid username/password');
+                    } 
+                    if(data=="AD")
                     {
-                        $("#password_msg").html('Invalid password');
-                    }
-                    else if(data=="IP2")
-                    {
-                        $("#password2_msg").html('Invalid confirm password');
-                    }                    
-                    else if(data=="IC")
-                    {
-                        $("#captch_msg").html('Invalid captcha code');
-                    }
-                    else if(data=="DU")
-                    {
-                        $("#error_msg").html('Username already taken');
-                    }                    
+                        $("#error_msg").html('Your account is temprary disabled');
+                    } 
                     else if(data=='Y')
                     {
                        window.location='home.php';
