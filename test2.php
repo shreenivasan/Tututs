@@ -1,4 +1,30 @@
-<?php 
+<?php
+$string1='"fsdfdsfs"';
+$string2="'shree'";
+?>
+<input type="text" value=<?=htmlentities($string1)?> /> 
+<input type="text" value=<?=htmlentities($string2)?> /> 
+<?php
+
+$data['platform']='android,desktop';
+if(strpos($data['platform'],'android'))
+{
+    echo '1';
+}
+else 
+{
+    echo '0';
+}
+
+die;
+if( strpos(strtolower ($data['platform']),'android')==FALSE && strpos(strtolower ($data['platform']),'desktop')==FALSE && strpos(strtolower ($data['platform']),'wap')==FALSE && strpos(strtolower ($data['platform']),'ios')==FALSE )
+{
+    echo 'YY';
+}
+ else {
+    echo 'N';
+}
+die;
     echo substr("Hello world",0,2); die;
     session_start();    
     include_once "../../../cons/connection.php";
