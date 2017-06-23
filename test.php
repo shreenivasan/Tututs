@@ -1,99 +1,123 @@
 <?php
-ob_start();
-//comment added
-$req="Y";
-?>
-<script src="js/jquery.min.js"></script>
-<script>
-function validateMe()
+ini_set("display_errors", "On");
+echo "<pre>";
+$con=  mysql_connect("192.168.0.43","eadmin","e@dm!n@123");
+mysql_select_db("trendsutra3");
+
+ $query1="SELECT SUM(sfoi.qty_ordered) qty, sfoi.sku";
+            $query1.=" FROM sales_flat_order sfo";
+            $query1.=" INNER JOIN sales_flat_order_item sfoi ON sfo.entity_id = sfoi.order_id";
+            $query1.=" WHERE sfo.status IN ('pending_verification' , 'hold', 'pending_payment_user_confirmed', 'pre_order', 'waiting_authorization')";
+            $query1.=" AND sfo.created_at BETWEEN DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m-%d %h :%i:%s') AND NOW()";
+            $query1.=" GROUP BY sfoi.sku ";   
+            
+$result= mysql_query($query1,$con);
+
+$rows=array();
+
+while($row= mysql_fetch_assoc($result))
 {
-  var fl=$("#fileToUpload").val();	
-		if(fl=="")
-		{
-			alert("Please select image");
-			return false;
-		}
-		else
-		{
-					return true;
-		}
-   
+    $rows[]=$row;
+    echo "key ===> ".in_array("AH1000059-P-OD1361", $row)?"Y":"N";
+    echo "<br>";
 }
-</script>
-<form action="post.php" id="frm" name="frm" method="post" enctype="multipart/form-data">
-<table width="100%">
-<tr>
-<td width="30%">
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-    <div class="fb-page" data-href="https://www.facebook.com/SandipFoundationIndia" data-width="300" data-height="400" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/SandipFoundationIndia"><a href="https://www.facebook.com/SandipFoundationIndia">Sandip Foundation</a></blockquote></div></div>
-</td>
-<td width="70%">
-        <?php
-$q=$_REQUEST['q'];
-$q=  base64_decode($q);
-$q_array=  explode("&",$q);
-//print_r($q_array);
-$new_array=array();
-for($i=0;$i<count($q_array);$i++)
+
+print_r($rows);
+
+die;
+
+$cur_date =array('year'=>'2016','mon'=>'11','mday'=>15,'hours'=>'17','minutes'=>'01','seconds'=>'01');
+
+function get_orders($cur_date)
 {
-    $temp=  explode("=",$q_array[$i]);
-    $new_array[$temp[0]]=$temp[1];
+    $y= $cur_date['year'];
+    $m= $cur_date['mon'];
+    $d= $cur_date['mday'];
+
+    $h = $cur_date['hours'];
+    $mi = $cur_date['minutes'];
+    $s = $cur_date['seconds'];
+    
+    echo $y.'-'.$m.'-'.$d.' '.$h.':'.$mi.':'.$s;
+    echo '<br>';
+    
+    if($h < 7)
+    {
+        $where1.=" WHERE ( sfo.created_at between '".$y."-".$m."-".($d-1)." 15:00:00' AND '$y-$m-".($d)." 06:59:59' OR  sfo.updated_at between '".$y."-".$m."-".($d-1)." 15:00:00' AND '$y-$m-".($d)." 06:59:59' )";
+        $where2.= " WHERE ( sfoi.created_at between '".$y."-".$m."-".($d-1)." 15:00:00' AND '$y-$m-".($d)." 06:59:59' )"; 
+        $where3.= " WHERE ( ts_sfoi.updated_at '".$y."-".$m."-".($d-1)." 15:00:00' AND '$y-$m-".($d)." 06:59:59' ) ";
+    }
+    else if( $h == 7 ||( $h>7 && $h <12))
+    {
+        $where1.=" WHERE  ( sfo. created_at between '".$y."-".$m."-".$d." 07:00:00' AND '$y-$m-$d 11:59:59' OR sfo. updated_at between '".$y."-".$m."-".$d." 07:00:00' AND '$y-$m-$d 11:59:59' ) ";
+        $where2.= " WHERE ( sfoi.created_at between '".$y."-".$m."-".$d." 07:00:00' AND '$y-$m-$d 11:59:59' ) ";
+        $where3.= " WHERE ( ts_sfoi.updated_at between '".$y."-".$m."-".$d." 07:00:00' AND '$y-$m-$d 11:59:59' ) ";
+    }
+    else if(($h > 15 ) || ($h ==15 && $s>1))
+    {
+        $where1.=" WHERE ( sfo.created_at between '".$y."-".$m."-".$d." 03:00:00' AND '$y-$m-".($d+1)." 06:59:59' OR sfo.updated_at between '".$y."-".$m."-".$d." 03:00:00' AND '$y-$m-".($d+1)." 06:59:59' )";
+        $where2.= " WHERE (sfoi.created_at between '".$y."-".$m."-".$d." 03:00:00' AND '$y-$m-".($d+1)." 06:59:59' ) ";
+        $where3.= " WHERE ( ts_sfoi.updated_at between '".$y."-".$m."-".$d." 03:00:00' AND '$y-$m-".($d+1)." 06:59:59' ) ";
+    }
+    else
+    {
+        $where1.=" Where ( sfo.created_at between '".$y."-".$m."-".$d." 12:00:00' AND '$y-$m-$d 14:59:59' OR sfo.updated_at between '".$y."-".$m."-".$d." 12:00:00' AND '$y-$m-$d 14:59:59')";
+        $where2.= " WHERE (sfoi.created_at between '".$y."-".$m."-".$d." 12:00:00' AND '$y-$m-$d 14:59:59' )";
+        $where3.= " WHERE ( ts_sfoi.updated_at  between '".$y."-".$m."-".$d." 12:00:00' AND '$y-$m-$d 14:59:59' ) ";
+    }
+    
+    $sql="  SELECT entity_id
+            FROM (  SELECT sfo.entity_id, sfo.increment_id
+                    FROM sales_flat_order sfo
+                    $where1    
+                    UNION
+                    SELECT  sfo.entity_id, sfo.increment_id
+                    FROM sales_flat_order_item sfoi
+                    LEFT JOIN sales_flat_order sfo ON (sfoi.order_id = sfo.entity_id)
+                    $where2    
+                    UNION
+                    SELECT  sfo.entity_id, sfo.increment_id
+                    FROM ts_sales_flat_order_item ts_sfoi
+                    LEFT JOIN sales_flat_order_item sfoi ON (ts_sfoi.item_id = sfoi.item_id)
+                    LEFT JOIN sales_flat_order sfo ON (sfoi.order_id = sfo.entity_id)
+                     $where3  
+                 ) t1
+            GROUP BY entity_id
+            ORDER BY entity_id DESC";
+    
+            echo $sql; die;
+            $result = mysql_query($sql);
+            $ids='';
+            while($row= mysql_fetch_array($result))
+            {
+                $ids.= "'".$row['entity_id']."',";
+            }
+            
+            return rtrim($ids,",");
 }
+
+
+echo '<br>';
+print_r(get_orders($cur_date));
+
+
+
+
+
+
+
+echo $sql; die;
+
+
+$where = " WHERE 1=1 ";
+
+
+
+//echo $where." @@@@@@@@@@2"; die;
+while($row= mysql_fetch_array($result))
+{
+    print_r($row);
+}
+
+
 ?>
-<table width="300px" height="200px" align="top" border="0">
-    <tr>
-        <td><img src="img/logo.png" height="100px"  width="100px" /></td>
-        <td><b style="font-size: 20px">Dandiya Gate Pass</b></td>
-    </tr>
-    <tr>
-        <td colspan="2">&nbsp;</td>
-    </tr>
-    <tr>
-        <td>Student Id</td>
-        <td><?=$new_array['ID']?> <input type="hidden" value="<?=$new_array['ID']?>" name="sid"/>
-        </td>        
-    </tr>
-    <tr>
-        <td>Student Name:</td>
-        <td><?=$new_array['Name']?>
-            <input type="hidden" name="name" id="name" value="<?=$new_array['Name']?>" />
-        </td>        
-    </tr>
-    <tr>
-        <td>College</td>
-        <td>
-            <?=$new_array['College']?>
-            <input type="hidden" name="college" id="college" value="<?=$new_array['College']?>" />
-        </td>
-    </tr>
-   <tr>
-        <td>Mobile No : </td>
-        <td>
-            <input type="text" name="mobile" id="mobile" value="<?=$new_array['Mobile']?>" />
-        </td>
-    </tr> 
-    <tr>
-        <td>Upload </td>
-        <td><input type="file" name="fileToUpload" id="fileToUpload" maxlength="50" /></td>        
-    </tr>
-    <tr>
-        <td colspan="2" style="padding-left: 100px;">&nbsp;</td>
-    </tr>
-    <tr>
-        <td colspan="2" style="padding-left: 100px;">
-            <button align="center" type="submit" id="submit" style="border:1px solid black">Submit</button>
-        </td> 
-    </tr>
-</table>
-      
-	</td>
-	</tr>
-	</table>
-	</form>  

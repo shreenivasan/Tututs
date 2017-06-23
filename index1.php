@@ -1,51 +1,77 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>jQuery UI Autocomplete - Default functionality</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script>
-  $(function() {
-    var availableTags = [
-      "<input type='text' name='n1' value='' >ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    $( "#tags" ).autocomplete({
-      source: availableTags
+<?php
+phpinfo();
+?>
+<style type="text/css">
+    .inputWrapper {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    /*Using a background color, but you can use a background image to represent a button*/
+    background-color: #DDF;
+}
+
+.fileInput {
+    cursor: pointer;
+    height: 100%;
+    position:absolute;
+    top: 0;
+    right: 0;
+    /*This makes the button huge so that it can be clicked on*/
+    font-size:50px;
+}
+.hidden {
+    /*Opacity settings for all browsers*/
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}
+
+
+/*Dynamic styles*/
+.inputWrapper:hover {
+    background-color: #FDD;
+}
+.inputWrapper.clicked {
+    background-color: #A66;
+}
+
+
+body {
+    font-family:Helvetica;
+}
+</style>
+<script src="jquery/parse_xml/jquery.min.js"></script>
+<script>
+    $(document).ready(function()
+    {
+    
+        $("#add_image").on('click',function(){
+            
+        });
+        
+        $(".inputWrapper").mousedown(function() 
+        {
+            var button = $(this);
+            button.addClass('clicked');
+            setTimeout(function()
+            {
+                button.removeClass('clicked');
+            },50);
+        });
     });
-  });
-  </script>
-</head>
-<body>
- 
-<div class="ui-widget">
-  <label for="tags">Tags: </label>
-  <input id="tags">
-</div>
- 
- 
-</body>
-</html>
+</script>
+<form action="" method="post" enctype="multipart/form-data" id="file_uploader">
+    <table>
+        <tr>
+            <td>Select Image</td>
+            <td>
+                <div id="image_container">
+                    <div class="inputWrapper">
+                        <input  class="fileInput" type="file" name="add_image" id="add_image" multiple="true" value="" />
+                           <div id="image-container-1" style="display: none"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
